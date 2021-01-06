@@ -1,0 +1,33 @@
+package main
+
+import (
+	"log"
+
+	"github.com/alimy/mirage/mirc/auto/api"
+	"github.com/alimy/mirage/servants"
+	"github.com/gin-gonic/gin"
+
+	_ "github.com/alimy/mirage/internal/context"
+	_ "github.com/alimy/mirage/internal/routers"
+)
+
+func main() {
+	e := gin.Default()
+
+	// register servants to gin
+	registerServants(e)
+
+	// start servant service
+	if err := e.Run(":7878"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func registerServants(e *gin.Engine) {
+	api.RegisterContainerServant(e, servants.NewContainerSrv())
+	api.RegisterDockerServant(e, servants.NewDockerSrv())
+	api.RegisterImageServant(e, servants.NewImageSrv())
+	api.RegisterNetworkServant(e, servants.NewNetworkSrv())
+	api.RegisterVolumeServant(e, servants.NewVolumeSrv())
+	api.RegisterPortalServant(e, servants.NewPortalSrv())
+}
