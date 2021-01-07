@@ -11,10 +11,12 @@ github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf/go.mod h1:ybxpYRF
 github.com/alecthomas/units v0.0.0-20190717042225-c3de453c63f4/go.mod h1:ybxpYRFXyAe+OPACYpWeL0wqObRcbAqCMya13uyzqw0=
 github.com/alicebob/gopher-json v0.0.0-20180125190556-5a6b3ba71ee6/go.mod h1:SGnFV6hVsYE877CKEZ6tDNTjaSXYUk6QqoIK6PrAtcc=
 github.com/alicebob/miniredis v2.5.0+incompatible/go.mod h1:8HZjEj4yU0dwhYHky+DxYx+6BMjkBbe5ONFIF1MXffk=
+github.com/alimy/embedx v0.3.2 h1:zN7P21cY14QG17BTx5dwSkWpatAbAPqikqKfZzkOD7o=
+github.com/alimy/embedx v0.3.2/go.mod h1:oEtAmXt6aGR47gKNYKtuMe/n49XN7iQAF3tr1DuEJCg=
 github.com/alimy/mir/v2 v2.6.1 h1:zrJq0IQsXfR74d2XiCJJZ7n6noWPlqmfHYFg7uY209U=
 github.com/alimy/mir/v2 v2.6.1/go.mod h1:lsJwZ58471a9/pztfiBW6+rs3rRqry2yZfr3oFxHAJA=
-github.com/alimy/mirage-ui v0.0.0-20210106122457-9797288b38f2 h1:r6cPRAoqQpHFQ33n9fvnwpA6ni3zcT9mKj3iUmKYJ88=
-github.com/alimy/mirage-ui v0.0.0-20210106122457-9797288b38f2/go.mod h1:fYC4nU8+hOE2cWB4V5Aj2n4aQUhLi4fOdvY2zfC9nLw=
+github.com/alimy/mirage-ui v0.1.0 h1:dQoiM6SQW105b4uMmb9liABN6porCJdhMPZm925ks2Q=
+github.com/alimy/mirage-ui v0.1.0/go.mod h1:4/SUNjij+o6V5V6hEGz6dx27HmDZSWJEeSBXNDuEVHQ=
 github.com/astaxie/beego v1.12.3 h1:SAQkdD2ePye+v8Gn1r4X6IKZM1wd28EyUOVQ3PDSOOQ=
 github.com/astaxie/beego v1.12.3/go.mod h1:p3qIm0Ryx7zeBHLljmd7omloyca1s4yu1a8kM1FkpIA=
 github.com/beego/goyaml2 v0.0.0-20130207012346-5545475820dd/go.mod h1:1b+Y/CofkYwXMUU0OhQqGvsY2Bvgr4j6jfT699wyZKQ=
