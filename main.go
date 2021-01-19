@@ -10,9 +10,6 @@ import (
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/alimy/mirage/servants"
 	"github.com/gin-gonic/gin"
-
-	_ "github.com/alimy/mirage/internal/context"
-	_ "github.com/alimy/mirage/internal/routers"
 )
 
 func main() {
