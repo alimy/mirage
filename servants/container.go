@@ -5,19 +5,25 @@
 package servants
 
 import (
+	"strconv"
+
+	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal"
 	"github.com/alimy/mirage/mirc/auto/api"
+	"github.com/docker/docker/api/types"
 	"github.com/gin-gonic/gin"
 )
 
 type containerSrv struct {
+	base
+	broker dao.Broker
+}
+
+func (s *containerSrv) ListContainer(c *gin.Context) {
 	// TODO
 }
 
-func (s *containerSrv) GetContainer(c *gin.Context) {
-	// TODO
-}
-
-func (s *containerSrv) CreateNewContainer(c *gin.Context) {
+func (s *containerSrv) NewContainer(c *gin.Context) {
 	// TODO
 }
 
@@ -34,21 +40,37 @@ func (s *containerSrv) StopContainer(c *gin.Context) {
 }
 
 func (s *containerSrv) RemoveContainer(c *gin.Context) {
+	id := c.Param("containerId")
+	volume, _ := strconv.ParseBool(c.Query("volume"))
+	link, _ := strconv.ParseBool(c.Query("link"))
+	force, _ := strconv.ParseBool(c.Query("force"))
+	options := types.ContainerRemoveOptions{
+		RemoveVolumes: volume,
+		RemoveLinks:   link,
+		Force:         force,
+	}
+	if err := s.broker.RemoveContainer(id, options); err == nil {
+		s.success(c)
+	} else {
+		s.error(c, err)
+	}
+}
+
+func (s *containerSrv) ContainerInfo(c *gin.Context) {
 	// TODO
 }
 
-func (s *containerSrv) GetContainerInfo(c *gin.Context) {
+func (s *containerSrv) ContainerPartLog(c *gin.Context) {
 	// TODO
 }
 
-func (s *containerSrv) GetContainerLog(c *gin.Context) {
-	// TODO
-}
-
-func (s *containerSrv) GetContainerAllLog(c *gin.Context) {
+func (s *containerSrv) ContainerAllLog(c *gin.Context) {
 	// TODO
 }
 
 func newContainerSrv() api.Container {
-	return &containerSrv{}
+	return &containerSrv{
+		base:   base{},
+		broker: internal.MyBroker(),
+	}
 }

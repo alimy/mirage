@@ -7,9 +7,9 @@ import (
 )
 
 type Volume interface {
-	GetVolumeList(*gin.Context)
-	NewVolume(*gin.Context)
-	GetVolumeInfo(*gin.Context)
+	ListVolume(*gin.Context)
+	CreateVolume(*gin.Context)
+	VolumeInfo(*gin.Context)
 	RemoveVolume(*gin.Context)
 	PruneVolume(*gin.Context)
 }
@@ -19,9 +19,9 @@ func RegisterVolumeServant(e *gin.Engine, s Volume) {
 	router := e
 
 	// register routes info to router
-	router.Handle("GET", "/api/volume", s.GetVolumeList)
-	router.Handle("GET", "/api/volume/new", s.NewVolume)
-	router.Handle("GET", "/api/volume/info/:volumeId", s.GetVolumeInfo)
+	router.Handle("GET", "/api/volume", s.ListVolume)
+	router.Handle("GET", "/api/volume/new", s.CreateVolume)
+	router.Handle("GET", "/api/volume/info/:volumeId", s.VolumeInfo)
 	router.Handle("GET", "/api/volume/delete/:volumeId/:force", s.RemoveVolume)
 	router.Handle("GET", "/api/volume/prune", s.PruneVolume)
 }

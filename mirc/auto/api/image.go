@@ -7,8 +7,8 @@ import (
 )
 
 type Image interface {
-	GetImageList(*gin.Context)
-	GetImageInfo(*gin.Context)
+	ListImage(*gin.Context)
+	ImageInfo(*gin.Context)
 	DeleteImage(*gin.Context)
 	TagImage(*gin.Context)
 	SaveImage(*gin.Context)
@@ -20,8 +20,8 @@ func RegisterImageServant(e *gin.Engine, s Image) {
 	router := e
 
 	// register routes info to router
-	router.Handle("GET", "/api/image", s.GetImageList)
-	router.Handle("GET", "/api/image/info/:imageId", s.GetImageInfo)
+	router.Handle("GET", "/api/image", s.ListImage)
+	router.Handle("GET", "/api/image/info/:imageId", s.ImageInfo)
 	router.Handle("GET", "/api/image/remove/:imageId/:forge", s.DeleteImage)
 	router.Handle("GET", "/api/image/tag", s.TagImage)
 	router.Handle("GET", "/api/image/save/:imageId", s.SaveImage)

@@ -14,13 +14,13 @@ func init() {
 }
 
 type Container struct {
-	GetContainer       Get `mir:"/api/container"`
-	CreateNewContainer Get `mir:"/api/container/run"`
-	StartContainer     Get `mir:"/api/container/start/:containerId"`
-	RestartContainer   Get `mir:"/api/container/restart/:containerId"`
-	StopContainer      Get `mir:"/api/container/stop/:containerId"`
-	RemoveContainer    Get `mir:"/api/container/delete/:containerId"`
-	GetContainerInfo   Get `mir:"/api/container/info/:containerId"`
-	GetContainerLog    Get `mir:"/api/container/log/part/:containerId"`
-	GetContainerAllLog Get `mir:"/api/container/log/all/:containerId"`
+	ListContainer    Get `mir:"/api/container"`
+	NewContainer     Get `mir:"/api/container/run"`
+	StartContainer   Get `mir:"/api/container/start/:containerId"`
+	RestartContainer Get `mir:"/api/container/restart/:containerId"`
+	StopContainer    Get `mir:"/api/container/stop/:containerId"`
+	RemoveContainer  Get `mir:"/api/container/delete/:containerId"`
+	ContainerInfo    Get `mir:"/api/container/info/:containerId"`
+	ContainerPartLog Get `mir:"/api/container/log/part/:containerId"`
+	ContainerAllLog  Get `mir:"/api/container/log/all/:containerId"`
 }

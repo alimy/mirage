@@ -5,26 +5,41 @@
 package servants
 
 import (
+	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal"
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/gin-gonic/gin"
 )
 
 type dockerSrv struct {
-	// TODO
+	base
+	broker dao.Broker
 }
 
 func (s *dockerSrv) DockerInfo(c *gin.Context) {
-	// TODO
+	if info, err := s.broker.DockerInfo(); err == nil {
+		s.ok(c, info)
+	} else {
+		s.error(c, err)
+	}
 }
 
-func (s *dockerSrv) GetVersion(c *gin.Context) {
-	// TODO
+func (s *dockerSrv) VersionInfo(c *gin.Context) {
+	s.ok(c, s.broker.VersionInfo())
 }
 
 func (s *dockerSrv) Ping(c *gin.Context) {
-	// TODO
+	if pong, err := s.broker.Ping(); err == nil {
+		s.ok(c, pong)
+	} else {
+		s.error(c, err)
+	}
+
 }
 
 func newDockerSrv() api.Docker {
-	return &dockerSrv{}
+	return &dockerSrv{
+		base:   base{},
+		broker: internal.MyBroker(),
+	}
 }

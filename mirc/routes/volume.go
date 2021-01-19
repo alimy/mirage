@@ -14,9 +14,9 @@ func init() {
 }
 
 type Volume struct {
-	GetVolumeList Get `mir:"/api/volume"`
-	NewVolume     Get `mir:"/api/volume/new"`
-	GetVolumeInfo Get `mir:"/api/volume/info/:volumeId"`
-	RemoveVolume  Get `mir:"/api/volume/delete/:volumeId/:force"`
-	PruneVolume   Get `mir:"/api/volume/prune"`
+	ListVolume   Get `mir:"/api/volume"`
+	CreateVolume Get `mir:"/api/volume/new"`
+	VolumeInfo   Get `mir:"/api/volume/info/:volumeId"`
+	RemoveVolume Get `mir:"/api/volume/delete/:volumeId/:force"`
+	PruneVolume  Get `mir:"/api/volume/prune"`
 }

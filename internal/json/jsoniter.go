@@ -2,25 +2,29 @@
 // Use of this source code is governed by Apache License 2.0 that
 // can be found in the LICENSE file.
 
-// +build !jsoniter
+// +build jsoniter
 
 package json
 
 import (
+	"github.com/json-iterator/go"
+
 	stdJson "encoding/json"
 )
 
 var (
+	js = jsoniter.ConfigCompatibleWithStandardLibrary
+
 	// Marshal json marshal
-	Marshal = stdJson.Marshal
+	Marshal = js.Marshal
 	// Unmarshal json unmarshal
-	Unmarshal = stdJson.Unmarshal
+	Unmarshal = js.Unmarshal
 	// MarshalIndent json marshal indent
-	MarshalIndent = stdJson.MarshalIndent
+	MarshalIndent = js.MarshalIndent
 	// NewDecoder json new decoder function
-	NewDecoder = stdJson.NewDecoder
+	NewDecoder = js.NewDecoder
 	// NewEncoder json new encoder function
-	NewEncoder = stdJson.NewEncoder
+	NewEncoder = js.NewEncoder
 )
 
 // RawMessage is a raw encoded JSON value.

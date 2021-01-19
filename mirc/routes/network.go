@@ -14,9 +14,9 @@ func init() {
 }
 
 type Network struct {
-	GetNetworkList    Get `mir:"/api/network"`
-	GetNetworkInfo    Get `mir:"/api/network/info/:networkId"`
-	CreateNetworkList Get `mir:"/api/network/new"`
-	RemoveNetwork     Get `mir:"/api/network/delete/:networkId"`
-	ConnectNetwork    Get `mir:"/api/network/container/:networkId/:containerId/:operator"`
+	ListNetwork    Get `mir:"/api/network"`
+	NetworkInfo    Get `mir:"/api/network/info/:networkId"`
+	CreateNetwork  Get `mir:"/api/network/new"`
+	RemoveNetwork  Get `mir:"/api/network/delete/:networkId"`
+	ConnectNetwork Get `mir:"/api/network/container/:networkId/:containerId/:operator"`
 }

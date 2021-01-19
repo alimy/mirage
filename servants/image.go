@@ -5,19 +5,22 @@
 package servants
 
 import (
+	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal"
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/gin-gonic/gin"
 )
 
 type imageSrv struct {
+	base
+	broker dao.Broker
+}
+
+func (s *imageSrv) ListImage(c *gin.Context) {
 	// TODO
 }
 
-func (s *imageSrv) GetImageList(c *gin.Context) {
-	// TODO
-}
-
-func (s *imageSrv) GetImageInfo(c *gin.Context) {
+func (s *imageSrv) ImageInfo(c *gin.Context) {
 	// TODO
 }
 
@@ -38,5 +41,8 @@ func (s *imageSrv) PullImage(c *gin.Context) {
 }
 
 func newImageSrv() api.Image {
-	return &imageSrv{}
+	return &imageSrv{
+		base:   base{},
+		broker: internal.MyBroker(),
+	}
 }

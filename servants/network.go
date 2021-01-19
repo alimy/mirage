@@ -5,23 +5,26 @@
 package servants
 
 import (
+	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal"
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/gin-gonic/gin"
 )
 
 type networkSrv struct {
+	base
+	broker dao.Broker
+}
+
+func (s *networkSrv) ListNetwork(c *gin.Context) {
 	// TODO
 }
 
-func (s *networkSrv) GetNetworkList(c *gin.Context) {
+func (s *networkSrv) NetworkInfo(c *gin.Context) {
 	// TODO
 }
 
-func (s *networkSrv) GetNetworkInfo(c *gin.Context) {
-	// TODO
-}
-
-func (s *networkSrv) CreateNetworkList(c *gin.Context) {
+func (s *networkSrv) CreateNetwork(c *gin.Context) {
 	// TODO
 }
 
@@ -34,5 +37,8 @@ func (s *networkSrv) ConnectNetwork(c *gin.Context) {
 }
 
 func newNetworkSrv() api.Network {
-	return &networkSrv{}
+	return &networkSrv{
+		base:   base{},
+		broker: internal.MyBroker(),
+	}
 }

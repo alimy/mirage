@@ -7,15 +7,15 @@ import (
 )
 
 type Container interface {
-	GetContainer(*gin.Context)
-	CreateNewContainer(*gin.Context)
+	ListContainer(*gin.Context)
+	NewContainer(*gin.Context)
 	StartContainer(*gin.Context)
 	RestartContainer(*gin.Context)
 	StopContainer(*gin.Context)
 	RemoveContainer(*gin.Context)
-	GetContainerInfo(*gin.Context)
-	GetContainerLog(*gin.Context)
-	GetContainerAllLog(*gin.Context)
+	ContainerInfo(*gin.Context)
+	ContainerPartLog(*gin.Context)
+	ContainerAllLog(*gin.Context)
 }
 
 // RegisterContainerServant register Container servant to gin
@@ -23,13 +23,13 @@ func RegisterContainerServant(e *gin.Engine, s Container) {
 	router := e
 
 	// register routes info to router
-	router.Handle("GET", "/api/container", s.GetContainer)
-	router.Handle("GET", "/api/container/run", s.CreateNewContainer)
+	router.Handle("GET", "/api/container", s.ListContainer)
+	router.Handle("GET", "/api/container/run", s.NewContainer)
 	router.Handle("GET", "/api/container/start/:containerId", s.StartContainer)
 	router.Handle("GET", "/api/container/restart/:containerId", s.RestartContainer)
 	router.Handle("GET", "/api/container/stop/:containerId", s.StopContainer)
 	router.Handle("GET", "/api/container/delete/:containerId", s.RemoveContainer)
-	router.Handle("GET", "/api/container/info/:containerId", s.GetContainerInfo)
-	router.Handle("GET", "/api/container/log/part/:containerId", s.GetContainerLog)
-	router.Handle("GET", "/api/container/log/all/:containerId", s.GetContainerAllLog)
+	router.Handle("GET", "/api/container/info/:containerId", s.ContainerInfo)
+	router.Handle("GET", "/api/container/log/part/:containerId", s.ContainerPartLog)
+	router.Handle("GET", "/api/container/log/all/:containerId", s.ContainerAllLog)
 }

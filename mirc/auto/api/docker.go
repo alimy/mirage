@@ -8,7 +8,7 @@ import (
 
 type Docker interface {
 	DockerInfo(*gin.Context)
-	GetVersion(*gin.Context)
+	VersionInfo(*gin.Context)
 	Ping(*gin.Context)
 }
 
@@ -18,6 +18,6 @@ func RegisterDockerServant(e *gin.Engine, s Docker) {
 
 	// register routes info to router
 	router.Handle("GET", "/api/docker/info", s.DockerInfo)
-	router.Handle("GET", "/api/docker/version", s.GetVersion)
+	router.Handle("GET", "/api/docker/version", s.VersionInfo)
 	router.Handle("GET", "/api/docker/ping", s.Ping)
 }
