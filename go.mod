@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/alimy/mir/v2 v2.6.1
-	github.com/alimy/mirage-ui v0.1.2
+	github.com/alimy/mirage-ui v0.2.0
 	github.com/containerd/containerd v1.4.3 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v20.10.1+incompatible
@@ -29,5 +29,3 @@ require (
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gotest.tools/v3 v3.0.3 // indirect
 )
-
-replace github.com/alimy/mirage-ui => ../mirage-ui
