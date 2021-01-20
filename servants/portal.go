@@ -40,7 +40,7 @@ func (p *portalSrv) HeadJSAssets(c *gin.Context) {
 	p.staticHandler.ServeHTTP(c.Writer, c.Request)
 }
 
-func NewPortalSrv() api.Portal {
+func newPortalSrv() api.Portal {
 	return &portalSrv{
 		staticHandler: http.FileServer(ui.NewFileSystem()),
 	}
