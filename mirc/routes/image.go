@@ -16,7 +16,7 @@ func init() {
 type Image struct {
 	ListImage   Get `mir:"/api/image"`
 	ImageInfo   Get `mir:"/api/image/info/:imageId"`
-	DeleteImage Get `mir:"/api/image/remove/:imageId/:forge"`
+	DeleteImage Get `mir:"/api/image/remove/:imageId/:force"`
 	TagImage    Get `mir:"/api/image/tag"`
 	SaveImage   Get `mir:"/api/image/save/:imageId"`
 	PullImage   Get `mir:"/api/image/pull"`

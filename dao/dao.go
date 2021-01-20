@@ -1,3 +1,7 @@
+// Copyright 2021 Michael Li <alimy@gility.net>. All rights reserved.
+// Use of this source code is governed by GNU General Public License 2.0 that
+// can be found in the LICENSE file.
+
 package dao
 
 import (
@@ -10,14 +14,14 @@ import (
 
 type Broker interface {
 	Whoami() string
-	ListContainer() []types.Container
+	ListContainer() ([]types.Container, error)
 	NewContainer(imageName string, containerName string, env []string, portBinding map[nat.Port][]nat.PortBinding, pathBind []string) (containerId string, err error)
 	StopContainer(containerId string) error
 	StartContainer(containerId string) error
 	RestartContainer(containerId string) error
 	RemoveContainer(containerId string, options types.ContainerRemoveOptions) error
 	ContainerInfo(containerId string) (types.ContainerJSON, error)
-	ContainerLogs(containerId string, tail string) (string, error)
+	ContainerLogs(containerId string, tail string) ([]byte, error)
 	DockerInfo() (types.Info, error)
 	VersionInfo() *Version
 	Ping() (types.Ping, error)

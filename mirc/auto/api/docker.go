@@ -7,6 +7,9 @@ import (
 )
 
 type Docker interface {
+	// Chain provide handlers chain for gin
+	Chain() gin.HandlersChain
+
 	DockerInfo(*gin.Context)
 	VersionInfo(*gin.Context)
 	Ping(*gin.Context)
@@ -15,6 +18,9 @@ type Docker interface {
 // RegisterDockerServant register Docker servant to gin
 func RegisterDockerServant(e *gin.Engine, s Docker) {
 	router := e
+	// use chain for router
+	middlewares := s.Chain()
+	router.Use(middlewares...)
 
 	// register routes info to router
 	router.Handle("GET", "/api/docker/info", s.DockerInfo)

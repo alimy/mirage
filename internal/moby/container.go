@@ -14,27 +14,24 @@ import (
 	"github.com/docker/go-connections/nat"
 )
 
-func (m *moby) ListContainer() []types.Container {
-	containerList, err := m.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+func (m *moby) ListContainer() ([]types.Container, error) {
+	cs, err := m.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	if err != nil {
-		panic(err)
-		return []types.Container{}
+		return nil, err
 	}
-	return containerList
+	return cs, nil
 }
 
 func (m *moby) NewContainer(imageName string, containerName string, env []string, portBinding map[nat.Port][]nat.PortBinding, pathBind []string) (containerId string, err error) {
 	imageConfig := container.Config{Image: imageName, Env: env}
-
 	hostConfig := container.HostConfig{PortBindings: portBinding, Binds: pathBind}
 	resp, err := m.client.ContainerCreate(context.Background(), &imageConfig, &hostConfig, nil, nil, containerName)
 	if err != nil {
-		_ = m.RemoveContainer(resp.ID, types.ContainerRemoveOptions{Force: true})
+		m.RemoveContainer(resp.ID, types.ContainerRemoveOptions{Force: true})
 		return "", err
 	}
-
 	startConfig := types.ContainerStartOptions{}
-	if err := m.client.ContainerStart(context.Background(), resp.ID, startConfig); err != nil {
+	if err = m.client.ContainerStart(context.Background(), resp.ID, startConfig); err != nil {
 		_ = m.RemoveContainer(resp.ID, types.ContainerRemoveOptions{Force: true})
 		return resp.ID, err
 	}
@@ -63,20 +60,19 @@ func (m *moby) ContainerInfo(containerId string) (types.ContainerJSON, error) {
 	return m.client.ContainerInspect(context.Background(), containerId)
 }
 
-func (m *moby) ContainerLogs(containerId string, tail string) (string, error) {
+func (m *moby) ContainerLogs(containerId string, tail string) ([]byte, error) {
 	options := types.ContainerLogsOptions{ShowStdout: true}
 	if tail != "" {
 		options.Tail = tail
 	}
 	logs, err := m.client.ContainerLogs(context.Background(), containerId, options)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-
 	buf := new(bytes.Buffer)
 	_, err = buf.ReadFrom(logs)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return buf.String(), nil
+	return buf.Bytes(), nil
 }

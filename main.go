@@ -5,23 +5,61 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/alimy/mirage/servants"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
+var (
+	host        string
+	port        uint
+	inDebug     bool
+	showVersion bool
+
+	version = "v0.1.0"
+)
+
+func init() {
+	flag.StringVar(&host, "host", "", "listening host")
+	flag.UintVar(&port, "port", 7878, "listening port")
+	flag.BoolVar(&inDebug, "debug", false, "show version")
+	flag.BoolVar(&showVersion, "v", false, "show version")
+}
+
 func main() {
+	flag.Parse()
+	setup()
+
+	if showVersion {
+		fmt.Println(version)
+		return
+	}
+
+	addr := fmt.Sprintf("%s:%d", host, port)
+	if host == "" {
+		host = "localhost"
+	}
+	fmt.Printf("listening in [%s]. Please open http://%s:%d in browser to enjoy yourself.\n", addr, host, port)
+
 	e := gin.Default()
-
-	// register servants to gin
 	registerServants(e)
-
-	// start servant service
-	if err := e.Run(":7878"); err != nil {
+	if err := e.Run(addr); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func setup() {
+	ginRunMode, logrusLevel := gin.ReleaseMode, logrus.InfoLevel
+	if inDebug {
+		ginRunMode, logrusLevel = gin.DebugMode, logrus.DebugLevel
+	}
+	gin.SetMode(ginRunMode)
+	logrus.SetLevel(logrusLevel)
 }
 
 func registerServants(e *gin.Engine) {

@@ -5,6 +5,8 @@
 package servants
 
 import (
+	"strconv"
+
 	"github.com/alimy/mirage/dao"
 	"github.com/alimy/mirage/internal"
 	"github.com/alimy/mirage/mirc/auto/api"
@@ -17,23 +19,33 @@ type volumeSrv struct {
 }
 
 func (s *volumeSrv) ListVolume(c *gin.Context) {
-	// TODO
+	volumes, err := s.broker.ListVolume()
+	s.resp(c, volumes, err)
 }
 
 func (s *volumeSrv) CreateVolume(c *gin.Context) {
-	// TODO
+	name := c.Query("name")
+	driver := c.Query("driver")
+	volume, err := s.broker.CreateVolume(name, driver, nil)
+	s.resp(c, volume, err)
 }
 
 func (s *volumeSrv) VolumeInfo(c *gin.Context) {
-	// TODO
+	id := c.Param("volumeId")
+	info, err := s.broker.VolumeInfo(id)
+	s.resp(c, info, err)
 }
 
 func (s *volumeSrv) RemoveVolume(c *gin.Context) {
-	// TODO
+	force, _ := strconv.ParseBool(c.Param("force"))
+	id := c.Param("volumeId")
+	err := s.broker.RemoveVolume(id, force)
+	s.reply(c, err)
 }
 
 func (s *volumeSrv) PruneVolume(c *gin.Context) {
-	// TODO
+	result, err := s.broker.PruneVolume()
+	s.resp(c, result, err)
 }
 
 func newVolumeSrv() api.Volume {

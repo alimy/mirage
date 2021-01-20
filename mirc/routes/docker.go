@@ -14,7 +14,8 @@ func init() {
 }
 
 type Docker struct {
-	DockerInfo  Get `mir:"/api/docker/info"`
-	VersionInfo Get `mir:"/api/docker/version"`
-	Ping        Get `mir:"/api/docker/ping"`
+	Chain       Chain `mir:"-"`
+	DockerInfo  Get   `mir:"/api/docker/info"`
+	VersionInfo Get   `mir:"/api/docker/version"`
+	Ping        Get   `mir:"/api/docker/ping"`
 }

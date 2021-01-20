@@ -16,12 +16,16 @@ type dockerSrv struct {
 	broker dao.Broker
 }
 
-func (s *dockerSrv) DockerInfo(c *gin.Context) {
-	if info, err := s.broker.DockerInfo(); err == nil {
-		s.ok(c, info)
-	} else {
-		s.error(c, err)
+func (s *dockerSrv) Chain() gin.HandlersChain {
+	return gin.HandlersChain{
+		gin.Logger(),
+		gin.Recovery(),
 	}
+}
+
+func (s *dockerSrv) DockerInfo(c *gin.Context) {
+	info, err := s.broker.DockerInfo()
+	s.resp(c, info, err)
 }
 
 func (s *dockerSrv) VersionInfo(c *gin.Context) {
@@ -29,11 +33,8 @@ func (s *dockerSrv) VersionInfo(c *gin.Context) {
 }
 
 func (s *dockerSrv) Ping(c *gin.Context) {
-	if pong, err := s.broker.Ping(); err == nil {
-		s.ok(c, pong)
-	} else {
-		s.error(c, err)
-	}
+	pong, err := s.broker.Ping()
+	s.resp(c, pong, err)
 
 }
 

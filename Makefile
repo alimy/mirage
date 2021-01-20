@@ -8,11 +8,11 @@ default: run
 
 .PHONY: build
 build: fmt
-	go build -o $TARGET main.go
+	go build -o $(TARGET) main.go
 
 .PHONY: build
-run: fmt
-	go run main.go
+run:
+	@go run main.go -debug
 
 .PHONY: mod-tidy
 mod-tidy:

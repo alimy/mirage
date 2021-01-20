@@ -11,11 +11,11 @@ import (
 )
 
 func NewBroker() dao.Broker {
-	client, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
+	c, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
 		logrus.Fatal(err)
 	}
 	return &moby{
-		client: client,
+		client: c,
 	}
 }

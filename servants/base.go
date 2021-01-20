@@ -12,9 +12,9 @@ import (
 )
 
 type response struct {
-	Code string
-	Msg  string
-	Data interface{}
+	Code string      `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
 }
 
 type render struct {
@@ -40,10 +40,45 @@ func (r *render) WriteContentType(w http.ResponseWriter) {
 	}
 }
 
+func (base) resp(c *gin.Context, data interface{}, err error) {
+	if err == nil {
+		c.Render(http.StatusOK, &render{
+			data: &response{
+				Code: "OK",
+				Data: data,
+			},
+		})
+	} else {
+		c.Render(http.StatusInternalServerError, &render{
+			data: &response{
+				Code: "ERROR",
+				Msg:  err.Error(),
+			},
+		})
+	}
+}
+
+func (base) reply(c *gin.Context, err error) {
+	if err == nil {
+		c.Render(http.StatusOK, &render{
+			data: &response{
+				Code: "OK",
+			},
+		})
+	} else {
+		c.Render(http.StatusInternalServerError, &render{
+			data: &response{
+				Code: "ERROR",
+				Msg:  err.Error(),
+			},
+		})
+	}
+}
+
 func (base) ok(c *gin.Context, data interface{}) {
 	c.Render(http.StatusOK, &render{
 		data: &response{
-			Code: "Ok",
+			Code: "OK",
 			Data: data,
 		},
 	})
