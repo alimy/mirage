@@ -2,17 +2,18 @@ GOFMT ?= gofmt -s -w
 GOFILES := $(shell find . -name "*.go" -type f)
 
 TARGET := mirage
+TAGS   := jsoniter
 
 .PHONY: default
 default: run
 
 .PHONY: build
 build: fmt
-	go build -o $(TARGET) main.go
+	go build -tags '$(TAGS)' -o $(TARGET) main.go
 
 .PHONY: build
 run:
-	@go run main.go -debug
+	@go run -tags '$(TAGS)' main.go -debug
 
 .PHONY: mod-tidy
 mod-tidy:
