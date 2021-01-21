@@ -25,7 +25,7 @@ var (
 func init() {
 	flag.StringVar(&host, "host", "", "listening host")
 	flag.UintVar(&port, "port", 7878, "listening port")
-	flag.BoolVar(&inDebug, "debug", false, "show version")
+	flag.BoolVar(&inDebug, "debug", false, "run in debug mode")
 	flag.BoolVar(&showVersion, "v", false, "show version")
 }
 
