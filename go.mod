@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/alimy/mir/v2 v2.6.1
-	github.com/alimy/mirage-ui v0.2.0
+	github.com/alimy/mirage-ui v0.2.1
 	github.com/containerd/containerd v1.4.3 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v20.10.1+incompatible
