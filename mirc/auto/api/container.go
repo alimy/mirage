@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -16,6 +18,8 @@ type Container interface {
 	ContainerInfo(*gin.Context)
 	ContainerPartLog(*gin.Context)
 	ContainerAllLog(*gin.Context)
+
+	mustEmbedUnimplementedContainerServant()
 }
 
 // RegisterContainerServant register Container servant to gin
@@ -33,3 +37,45 @@ func RegisterContainerServant(e *gin.Engine, s Container) {
 	router.Handle("GET", "/api/container/log/part/:containerId", s.ContainerPartLog)
 	router.Handle("GET", "/api/container/log/all/:containerId", s.ContainerAllLog)
 }
+
+// UnimplementedContainerServant can be embedded to have forward compatible implementations.
+type UnimplementedContainerServant struct {
+}
+
+func (UnimplementedContainerServant) ListContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ListContainer not implemented")
+}
+
+func (UnimplementedContainerServant) NewContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method NewContainer not implemented")
+}
+
+func (UnimplementedContainerServant) StartContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method StartContainer not implemented")
+}
+
+func (UnimplementedContainerServant) RestartContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method RestartContainer not implemented")
+}
+
+func (UnimplementedContainerServant) StopContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method StopContainer not implemented")
+}
+
+func (UnimplementedContainerServant) RemoveContainer(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method RemoveContainer not implemented")
+}
+
+func (UnimplementedContainerServant) ContainerInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ContainerInfo not implemented")
+}
+
+func (UnimplementedContainerServant) ContainerPartLog(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ContainerPartLog not implemented")
+}
+
+func (UnimplementedContainerServant) ContainerAllLog(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ContainerAllLog not implemented")
+}
+
+func (UnimplementedContainerServant) mustEmbedUnimplementedContainerServant() {}

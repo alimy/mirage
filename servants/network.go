@@ -15,7 +15,9 @@ import (
 )
 
 type networkSrv struct {
+	api.UnimplementedNetworkServant
 	base
+
 	broker dao.Broker
 }
 

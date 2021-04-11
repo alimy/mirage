@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -13,6 +15,8 @@ type Portal interface {
 	HeadCSSAssets(*gin.Context)
 	GetJSAssets(*gin.Context)
 	HeadJSAssets(*gin.Context)
+
+	mustEmbedUnimplementedPortalServant()
 }
 
 // RegisterPortalServant register Portal servant to gin
@@ -27,3 +31,33 @@ func RegisterPortalServant(e *gin.Engine, s Portal) {
 	router.Handle("GET", "/js/*filepath", s.GetJSAssets)
 	router.Handle("HEAD", "/js/*filepath", s.HeadJSAssets)
 }
+
+// UnimplementedPortalServant can be embedded to have forward compatible implementations.
+type UnimplementedPortalServant struct {
+}
+
+func (UnimplementedPortalServant) Index(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method Index not implemented")
+}
+
+func (UnimplementedPortalServant) GetMainAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method GetMainAssets not implemented")
+}
+
+func (UnimplementedPortalServant) GetCSSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method GetCSSAssets not implemented")
+}
+
+func (UnimplementedPortalServant) HeadCSSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method HeadCSSAssets not implemented")
+}
+
+func (UnimplementedPortalServant) GetJSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method GetJSAssets not implemented")
+}
+
+func (UnimplementedPortalServant) HeadJSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method HeadJSAssets not implemented")
+}
+
+func (UnimplementedPortalServant) mustEmbedUnimplementedPortalServant() {}

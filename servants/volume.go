@@ -14,7 +14,9 @@ import (
 )
 
 type volumeSrv struct {
+	api.UnimplementedVolumeServant
 	base
+
 	broker dao.Broker
 }
 

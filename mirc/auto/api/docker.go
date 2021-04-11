@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -13,6 +15,8 @@ type Docker interface {
 	DockerInfo(*gin.Context)
 	VersionInfo(*gin.Context)
 	Ping(*gin.Context)
+
+	mustEmbedUnimplementedDockerServant()
 }
 
 // RegisterDockerServant register Docker servant to gin
@@ -27,3 +31,25 @@ func RegisterDockerServant(e *gin.Engine, s Docker) {
 	router.Handle("GET", "/api/docker/version", s.VersionInfo)
 	router.Handle("GET", "/api/docker/ping", s.Ping)
 }
+
+// UnimplementedDockerServant can be embedded to have forward compatible implementations.
+type UnimplementedDockerServant struct {
+}
+
+func (UnimplementedDockerServant) Chain() gin.HandlersChain {
+	return nil
+}
+
+func (UnimplementedDockerServant) DockerInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method DockerInfo not implemented")
+}
+
+func (UnimplementedDockerServant) VersionInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method VersionInfo not implemented")
+}
+
+func (UnimplementedDockerServant) Ping(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method Ping not implemented")
+}
+
+func (UnimplementedDockerServant) mustEmbedUnimplementedDockerServant() {}

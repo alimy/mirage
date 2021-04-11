@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -12,6 +14,8 @@ type Network interface {
 	CreateNetwork(*gin.Context)
 	RemoveNetwork(*gin.Context)
 	ConnectNetwork(*gin.Context)
+
+	mustEmbedUnimplementedNetworkServant()
 }
 
 // RegisterNetworkServant register Network servant to gin
@@ -25,3 +29,29 @@ func RegisterNetworkServant(e *gin.Engine, s Network) {
 	router.Handle("GET", "/api/network/delete/:networkId", s.RemoveNetwork)
 	router.Handle("GET", "/api/network/container/:networkId/:containerId/:operator", s.ConnectNetwork)
 }
+
+// UnimplementedNetworkServant can be embedded to have forward compatible implementations.
+type UnimplementedNetworkServant struct {
+}
+
+func (UnimplementedNetworkServant) ListNetwork(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ListNetwork not implemented")
+}
+
+func (UnimplementedNetworkServant) NetworkInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method NetworkInfo not implemented")
+}
+
+func (UnimplementedNetworkServant) CreateNetwork(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method CreateNetwork not implemented")
+}
+
+func (UnimplementedNetworkServant) RemoveNetwork(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method RemoveNetwork not implemented")
+}
+
+func (UnimplementedNetworkServant) ConnectNetwork(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ConnectNetwork not implemented")
+}
+
+func (UnimplementedNetworkServant) mustEmbedUnimplementedNetworkServant() {}

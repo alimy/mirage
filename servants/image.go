@@ -18,7 +18,9 @@ import (
 )
 
 type imageSrv struct {
+	api.UnimplementedImageServant
 	base
+
 	broker dao.Broker
 }
 

@@ -13,6 +13,8 @@ import (
 )
 
 type portalSrv struct {
+	api.UnimplementedPortalServant
+
 	staticHandler http.Handler
 }
 

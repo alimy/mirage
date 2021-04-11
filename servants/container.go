@@ -19,7 +19,9 @@ import (
 )
 
 type containerSrv struct {
+	api.UnimplementedContainerServant
 	base
+
 	broker dao.Broker
 }
 

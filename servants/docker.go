@@ -12,7 +12,9 @@ import (
 )
 
 type dockerSrv struct {
+	api.UnimplementedDockerServant
 	base
+
 	broker dao.Broker
 }
 

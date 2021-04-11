@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -13,6 +15,8 @@ type Image interface {
 	TagImage(*gin.Context)
 	SaveImage(*gin.Context)
 	PullImage(*gin.Context)
+
+	mustEmbedUnimplementedImageServant()
 }
 
 // RegisterImageServant register Image servant to gin
@@ -22,8 +26,38 @@ func RegisterImageServant(e *gin.Engine, s Image) {
 	// register routes info to router
 	router.Handle("GET", "/api/image", s.ListImage)
 	router.Handle("GET", "/api/image/info/:imageId", s.ImageInfo)
-	router.Handle("GET", "/api/image/remove/:imageId/:forge", s.DeleteImage)
+	router.Handle("GET", "/api/image/remove/:imageId/:force", s.DeleteImage)
 	router.Handle("GET", "/api/image/tag", s.TagImage)
 	router.Handle("GET", "/api/image/save/:imageId", s.SaveImage)
 	router.Handle("GET", "/api/image/pull", s.PullImage)
 }
+
+// UnimplementedImageServant can be embedded to have forward compatible implementations.
+type UnimplementedImageServant struct {
+}
+
+func (UnimplementedImageServant) ListImage(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ListImage not implemented")
+}
+
+func (UnimplementedImageServant) ImageInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ImageInfo not implemented")
+}
+
+func (UnimplementedImageServant) DeleteImage(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method DeleteImage not implemented")
+}
+
+func (UnimplementedImageServant) TagImage(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method TagImage not implemented")
+}
+
+func (UnimplementedImageServant) SaveImage(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method SaveImage not implemented")
+}
+
+func (UnimplementedImageServant) PullImage(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method PullImage not implemented")
+}
+
+func (UnimplementedImageServant) mustEmbedUnimplementedImageServant() {}

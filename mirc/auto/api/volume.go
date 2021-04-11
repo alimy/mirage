@@ -3,6 +3,8 @@
 package api
 
 import (
+	"net/http"
+
 	gin "github.com/gin-gonic/gin"
 )
 
@@ -12,6 +14,8 @@ type Volume interface {
 	VolumeInfo(*gin.Context)
 	RemoveVolume(*gin.Context)
 	PruneVolume(*gin.Context)
+
+	mustEmbedUnimplementedVolumeServant()
 }
 
 // RegisterVolumeServant register Volume servant to gin
@@ -25,3 +29,29 @@ func RegisterVolumeServant(e *gin.Engine, s Volume) {
 	router.Handle("GET", "/api/volume/delete/:volumeId/:force", s.RemoveVolume)
 	router.Handle("GET", "/api/volume/prune", s.PruneVolume)
 }
+
+// UnimplementedVolumeServant can be embedded to have forward compatible implementations.
+type UnimplementedVolumeServant struct {
+}
+
+func (UnimplementedVolumeServant) ListVolume(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method ListVolume not implemented")
+}
+
+func (UnimplementedVolumeServant) CreateVolume(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method CreateVolume not implemented")
+}
+
+func (UnimplementedVolumeServant) VolumeInfo(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method VolumeInfo not implemented")
+}
+
+func (UnimplementedVolumeServant) RemoveVolume(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method RemoveVolume not implemented")
+}
+
+func (UnimplementedVolumeServant) PruneVolume(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method PruneVolume not implemented")
+}
+
+func (UnimplementedVolumeServant) mustEmbedUnimplementedVolumeServant() {}
