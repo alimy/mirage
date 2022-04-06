@@ -10,11 +10,9 @@ import (
 
 type Portal interface {
 	Index(*gin.Context)
-	GetMainAssets(*gin.Context)
-	GetCSSAssets(*gin.Context)
-	HeadCSSAssets(*gin.Context)
-	GetJSAssets(*gin.Context)
-	HeadJSAssets(*gin.Context)
+	IndexHtml(*gin.Context)
+	CSSAssets(*gin.Context)
+	JSAssets(*gin.Context)
 
 	mustEmbedUnimplementedPortalServant()
 }
@@ -25,11 +23,11 @@ func RegisterPortalServant(e *gin.Engine, s Portal) {
 
 	// register routes info to router
 	router.Handle("GET", "/", s.Index)
-	router.Handle("GET", "/index.html", s.GetMainAssets)
-	router.Handle("GET", "/css/*filepath", s.GetCSSAssets)
-	router.Handle("HEAD", "/css/*filepath", s.HeadCSSAssets)
-	router.Handle("GET", "/js/*filepath", s.GetJSAssets)
-	router.Handle("HEAD", "/js/*filepath", s.HeadJSAssets)
+	router.Handle("GET", "/index.html", s.IndexHtml)
+	router.Handle("HEAD", "/css/*filepath", s.CSSAssets)
+	router.Handle("GET", "/css/*filepath", s.CSSAssets)
+
+	router.Handle("GET", "/js/*filepath", s.JSAssets)
 }
 
 // UnimplementedPortalServant can be embedded to have forward compatible implementations.
@@ -40,24 +38,16 @@ func (UnimplementedPortalServant) Index(c *gin.Context) {
 	c.String(http.StatusNotImplemented, "method Index not implemented")
 }
 
-func (UnimplementedPortalServant) GetMainAssets(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "method GetMainAssets not implemented")
+func (UnimplementedPortalServant) IndexHtml(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method IndexHtml not implemented")
 }
 
-func (UnimplementedPortalServant) GetCSSAssets(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "method GetCSSAssets not implemented")
+func (UnimplementedPortalServant) CSSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method CSSAssets not implemented")
 }
 
-func (UnimplementedPortalServant) HeadCSSAssets(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "method HeadCSSAssets not implemented")
-}
-
-func (UnimplementedPortalServant) GetJSAssets(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "method GetJSAssets not implemented")
-}
-
-func (UnimplementedPortalServant) HeadJSAssets(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "method HeadJSAssets not implemented")
+func (UnimplementedPortalServant) JSAssets(c *gin.Context) {
+	c.String(http.StatusNotImplemented, "method JSAssets not implemented")
 }
 
 func (UnimplementedPortalServant) mustEmbedUnimplementedPortalServant() {}

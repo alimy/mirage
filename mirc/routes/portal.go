@@ -15,10 +15,8 @@ func init() {
 
 // Portal web ui interface handler
 type Portal struct {
-	Index         Get  `mir:"/"`
-	GetMainAssets Get  `mir:"/index.html"`
-	GetCSSAssets  Get  `mir:"/css/*filepath"`
-	HeadCSSAssets Head `mir:"/css/*filepath"`
-	GetJSAssets   Get  `mir:"/js/*filepath"`
-	HeadJSAssets  Head `mir:"/js/*filepath"`
+	Index     Get `mir:"/"`
+	IndexHtml Get `mir:"/index.html"`
+	CSSAssets Any `mir:"/css/*filepath" method:"Head,Get"`
+	JSAssets  Get `mir:"/js/*filepath" method:"Head,Get"`
 }

@@ -22,23 +22,15 @@ func (p *portalSrv) Index(c *gin.Context) {
 	p.staticHandler.ServeHTTP(c.Writer, c.Request)
 }
 
-func (p *portalSrv) GetMainAssets(c *gin.Context) {
+func (p *portalSrv) IndexHtml(c *gin.Context) {
 	p.staticHandler.ServeHTTP(c.Writer, c.Request)
 }
 
-func (p *portalSrv) GetCSSAssets(c *gin.Context) {
+func (p *portalSrv) CSSAssets(c *gin.Context) {
 	p.staticHandler.ServeHTTP(c.Writer, c.Request)
 }
 
-func (p *portalSrv) HeadCSSAssets(c *gin.Context) {
-	p.staticHandler.ServeHTTP(c.Writer, c.Request)
-}
-
-func (p *portalSrv) GetJSAssets(c *gin.Context) {
-	p.staticHandler.ServeHTTP(c.Writer, c.Request)
-}
-
-func (p *portalSrv) HeadJSAssets(c *gin.Context) {
+func (p *portalSrv) JSAssets(c *gin.Context) {
 	p.staticHandler.ServeHTTP(c.Writer, c.Request)
 }
 
