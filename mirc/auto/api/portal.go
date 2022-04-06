@@ -27,7 +27,9 @@ func RegisterPortalServant(e *gin.Engine, s Portal) {
 	router.Handle("HEAD", "/css/*filepath", s.CSSAssets)
 	router.Handle("GET", "/css/*filepath", s.CSSAssets)
 
+	router.Handle("HEAD", "/js/*filepath", s.JSAssets)
 	router.Handle("GET", "/js/*filepath", s.JSAssets)
+
 }
 
 // UnimplementedPortalServant can be embedded to have forward compatible implementations.

@@ -18,5 +18,5 @@ type Portal struct {
 	Index     Get `mir:"/"`
 	IndexHtml Get `mir:"/index.html"`
 	CSSAssets Any `mir:"/css/*filepath" method:"Head,Get"`
-	JSAssets  Get `mir:"/js/*filepath" method:"Head,Get"`
+	JSAssets  Any `mir:"/js/*filepath" method:"Head,Get"`
 }
