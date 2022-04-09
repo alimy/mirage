@@ -8,8 +8,8 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/alimy/mirage/dao"
 	"github.com/alimy/mirage/internal"
+	"github.com/alimy/mirage/internal/dao"
 	"github.com/alimy/mirage/mirc/auto/api"
 	"github.com/gin-gonic/gin"
 )

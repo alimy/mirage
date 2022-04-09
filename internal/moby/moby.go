@@ -5,7 +5,7 @@
 package moby
 
 import (
-	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal/dao"
 	"github.com/docker/docker/client"
 	"github.com/sirupsen/logrus"
 )

@@ -7,7 +7,7 @@ package moby
 import (
 	"context"
 
-	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal/dao"
 	"github.com/docker/docker/api/types"
 )
 

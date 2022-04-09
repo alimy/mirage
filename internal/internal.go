@@ -5,7 +5,7 @@
 package internal
 
 import (
-	"github.com/alimy/mirage/dao"
+	"github.com/alimy/mirage/internal/dao"
 	"github.com/alimy/mirage/internal/moby"
 )
 
